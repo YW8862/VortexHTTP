@@ -34,6 +34,9 @@ private:
     // 发送HTTP响应
     void sendResponse(int fd, const std::string& content);
 
+    //发送错误响应
+    void sendErrorResponse(int fd, int code, const std::string& message);
+
     int port;                // 服务器监听端口
     int listenFd;            // 监听socket的文件描述符
     Epoll epoll;             // Epoll事件管理器
