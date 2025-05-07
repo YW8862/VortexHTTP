@@ -6,7 +6,8 @@
 
 enum LogLevel { DEBUG, INFO, WARNING, ERROR, FATAL };
 
-class Logger {
+class Logger 
+{
 public:
     Logger(const Logger&) = delete;
     Logger& operator=(const Logger&) = delete;
@@ -21,7 +22,8 @@ private:
     std::mutex logMutex;
 };
 
-class LogStream : public std::ostringstream {
+class LogStream : public std::ostringstream 
+{
 public:
     explicit LogStream(LogLevel level);
     ~LogStream();

@@ -10,7 +10,8 @@
  * 
  * 整合Epoll事件循环和线程池，实现高并发服务
  */
-class HttpServer {
+class HttpServer 
+{
 public:
     // 构造函数指定端口和线程数量
     HttpServer(int port, int threadNum);
@@ -32,7 +33,7 @@ private:
     void handleRequest(int fd);
     
     // 发送HTTP响应
-    void sendResponse(int fd, const std::string& content);
+    void sendResponse(int fd);
 
     //发送错误响应
     void sendErrorResponse(int fd, int code, const std::string& message);

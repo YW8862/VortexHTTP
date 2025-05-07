@@ -2,7 +2,8 @@
 #include "utils/Logger.h"
 #include <cstdlib>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
     try {
         // 设置日志级别
         Logger::instance().setLevel(DEBUG);

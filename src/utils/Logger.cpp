@@ -3,16 +3,20 @@
 
 Logger::Logger() : currentLevel(INFO) {} // 构造初始化原子变量
 
-Logger& Logger::instance() {
+Logger& Logger::instance() 
+{
     static Logger instance;
     return instance;
 }
 
-void Logger::setLevel(LogLevel level) {
+void Logger::setLevel(LogLevel level) 
+{
     currentLevel.store(level);
 }
 
-void Logger::log(LogLevel level, const std::string& msg) {
+void Logger::log(LogLevel level, const std::string& msg) 
+{
+    //如果等级低于最小级别，直接忽略
     if (level < currentLevel.load()) return;
     
     const char* levelNames[] = {"DEBUG", "INFO","WARNING","ERROR","FATAL"};
@@ -23,9 +27,11 @@ void Logger::log(LogLevel level, const std::string& msg) {
 
 LogStream::LogStream(LogLevel level) : level(level) {}
 
-LogStream::~LogStream() {
+LogStream::~LogStream() 
+{
     auto currentLevel = Logger::instance().currentLevel.load();
-    if (level >= currentLevel) {
+    if (level >= currentLevel) 
+    {
         Logger::instance().log(level, this->str());
     }
 }

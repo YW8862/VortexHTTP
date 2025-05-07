@@ -8,10 +8,12 @@
  * 实现HTTP/1.1协议的请求行和头部解析
  * 支持状态机模式解析不完整请求
  */
-class HttpParser {
+class HttpParser 
+{
 public:
     // 解析状态枚举
-    enum class State {
+    enum class State 
+    {
         METHOD,     // 解析请求方法
         PATH,       // 解析请求路径
         VERSION,    // 解析协议版本

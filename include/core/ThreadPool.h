@@ -13,7 +13,8 @@
  * 基于任务队列的生产者-消费者模型实现
  * 支持动态线程数量控制
  */
-class ThreadPool {
+class ThreadPool 
+{
 public:
     // 构造函数指定线程数量
     explicit ThreadPool(size_t numThreads);
