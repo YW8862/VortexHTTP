@@ -3,26 +3,42 @@
 #include <mutex>
 #include <atomic>
 #include <sstream>
+#include <fstream>
 
-enum LogLevel { DEBUG, INFO, WARNING, ERROR, FATAL };
+const std::string logPath = "/var/log/httplog.txt";
 
-class Logger 
+enum LogLevel
 {
-public:
-    Logger(const Logger&) = delete;
-    Logger& operator=(const Logger&) = delete;
-
-    static Logger& instance();
-    
-    void setLevel(LogLevel level);
-    void log(LogLevel level, const std::string& message);
-    std::atomic<LogLevel> currentLevel;
-private:
-    Logger();  // 默认构造私有化
-    std::mutex logMutex;
+    DEBUG,
+    INFO,
+    WARNING,
+    ERROR,
+    FATAL
 };
 
-class LogStream : public std::ostringstream 
+class Logger
+{
+public:
+    Logger(const Logger &) = delete;
+    Logger &operator=(const Logger &) = delete;
+
+    static Logger &instance();
+
+    void setLevel(LogLevel level);
+    void log(LogLevel level, const std::string &message);
+    void logToFile(const std::string &message);
+    std::atomic<LogLevel> currentLevel;
+
+    void setLogToScreen();
+    void setLogToFile();
+
+private:
+    Logger(); // 默认构造私有化
+    std::mutex logMutex;
+    bool saveToFile;
+};
+
+class LogStream : public std::ostringstream
 {
 public:
     explicit LogStream(LogLevel level);
@@ -33,3 +49,7 @@ private:
 };
 
 #define LOG(level) LogStream(level)
+
+#define LOGTOSCREEN() Logger::instance().setLogToScreen()
+
+#define LOGTOFILE() Logger::instance().setLogToFile()
